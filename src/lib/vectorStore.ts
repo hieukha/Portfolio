@@ -1,13 +1,13 @@
 import { QdrantVectorStore } from "@langchain/qdrant";
 import { qdrant, collectionName } from "./qdrant";
-import { embeddings } from "./embeddings";
+import { getEmbeddings } from "./embeddings";
 
 let cachedStore: QdrantVectorStore | null = null;
 
 export const getVectorStore = async () => {
   if (cachedStore) return cachedStore;
 
-  cachedStore = await QdrantVectorStore.fromExistingCollection(embeddings, {
+  cachedStore = await QdrantVectorStore.fromExistingCollection(getEmbeddings(), {
     client: qdrant,
     collectionName,
   });
