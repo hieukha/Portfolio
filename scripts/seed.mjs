@@ -73,7 +73,7 @@ await Intro.create({
   name: "Nguyen Hieu Kha",
   roles: ["Multi-Agent Systems", "Reliable AI Systems", "LLM Applications"],
   desc: "I build AI systems that move from research ideas to real-world products, including RAG pipelines, multi-agent systems, multimodal retrieval, and real-time voice applications.",
-  image: "/portfolio_avatar.webp", cvFile: "/NguyenHieuKha_CV.pdf",
+  image: "/portfolio_avatar_v2.webp", cvFile: "/NguyenHieuKha_CV.pdf",
   github: "https://github.com/hieukha", linkedin: "https://www.linkedin.com/in/kha-nguyen-9359a8312",
   email: "khanguyenhieu@gmail.com", phone: "+84901796640",
 });

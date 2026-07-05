@@ -72,7 +72,7 @@ export const defaultData: PortfolioData = {
       "LLM Applications",
     ],
     desc: "I build AI systems that move from research ideas to real-world products, including RAG pipelines, multi-agent systems, multimodal retrieval, and real-time voice applications.",
-    image: "/portfolio_avatar.webp",
+    image: "/portfolio_avatar_v2.webp",
     cvFile: "/NguyenHieuKha_CV.pdf",
     github: "https://github.com/hieukha",
     linkedin: "https://www.linkedin.com/in/kha-nguyen-9359a8312",
