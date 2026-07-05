@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 
@@ -27,6 +27,25 @@ export default function GithubActivity({ username }: { username: string }) {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (loading || !scrollRef.current) return;
+
+    const wrapper = scrollRef.current;
+    const scrollToEnd = () => {
+      const container = wrapper.querySelector<HTMLDivElement>(
+        ".react-activity-calendar__scroll-container"
+      );
+      if (container) container.scrollLeft = container.scrollWidth;
+    };
+
+    scrollToEnd();
+    const observer = new MutationObserver(scrollToEnd);
+    observer.observe(wrapper, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, [loading]);
 
   useEffect(() => {
     let cancelled = false;
@@ -76,7 +95,10 @@ export default function GithubActivity({ username }: { username: string }) {
       {loading ? (
         <div className="h-[140px] w-full animate-pulse rounded-xl bg-zinc-100 dark:bg-zinc-900" />
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-[#1e2939] dark:bg-[#171717]">
+        <div
+          ref={scrollRef}
+          className="overflow-x-auto rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-[#1e2939] dark:bg-[#171717]"
+        >
           <ActivityCalendar
             data={data}
             blockSize={12}
