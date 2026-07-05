@@ -1,0 +1,11 @@
+.next/
+node_modules/
+.npm-cache/
+out/
+*.log
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+.claude/
