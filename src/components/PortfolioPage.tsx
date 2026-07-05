@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type CSSProperties, type ElementType } from "react";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 import { motion, type Variants } from "framer-motion";
 import {
@@ -253,12 +254,12 @@ function NavBar({ avatar, hasBlog }: { avatar: string; hasBlog: boolean }) {
     >
       <div className="flex items-center justify-between">
         <a href="#home" className="flex items-center gap-3" aria-label="Go to home">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={avatar}
             alt="avatar"
             width={40}
             height={40}
+            priority
             className="h-10 w-10 rounded-full object-cover"
           />
         </a>
@@ -373,8 +374,14 @@ export default function PortfolioPage({ data }: { data: PortfolioData }) {
             variants={item}
             className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-zinc-200 bg-zinc-100 shadow-md dark:border-zinc-800 dark:bg-zinc-900"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={intro.image} alt={intro.name} className="h-full w-full object-cover" />
+            <Image
+              src={intro.image}
+              alt={intro.name}
+              fill
+              priority
+              sizes="128px"
+              className="object-cover"
+            />
           </motion.div>
 
           <motion.div variants={item}>
@@ -564,11 +571,12 @@ export default function PortfolioPage({ data }: { data: PortfolioData }) {
               >
                 {project.image ? (
                   <div className="relative h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                 ) : (
@@ -668,11 +676,12 @@ export default function PortfolioPage({ data }: { data: PortfolioData }) {
                 >
                   {post.image ? (
                     <div className="relative h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={post.image}
                         alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   ) : (

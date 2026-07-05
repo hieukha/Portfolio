@@ -1,11 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import GlobalChatWidget from "@/components/GlobalChatWidget";
 import { getBlogById } from "@/lib/portfolio-data";
-
-export const dynamic = "force-dynamic";
 
 export default async function BlogPostPage({
   params,
@@ -28,12 +27,16 @@ export default async function BlogPostPage({
 
       <article className="mt-8">
         {post.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={post.image}
-            alt={post.title}
-            className="mb-8 h-64 w-full rounded-2xl object-cover sm:h-80"
-          />
+          <div className="relative mb-8 h-64 w-full overflow-hidden rounded-2xl sm:h-80">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              priority
+              sizes="768px"
+              className="object-cover"
+            />
+          </div>
         )}
 
         <p className="text-sm text-zinc-500 dark:text-zinc-400">

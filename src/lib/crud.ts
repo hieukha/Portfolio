@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import type { Model, SortOrder } from "mongoose";
 import { ConnectDB } from "@/lib/db";
 import { auth } from "@/auth";
@@ -10,6 +11,12 @@ async function isAuthed() {
 
 const unauthorized = () =>
   NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+/** The public homepage renders every collection, so any mutation invalidates it. */
+function revalidatePublicPages(extraPaths: string[] = []) {
+  revalidatePath("/");
+  for (const path of extraPaths) revalidatePath(path);
+}
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -29,13 +36,17 @@ export function collectionHandlers<T>(
       await ConnectDB();
       const body = await req.json();
       const created = await model.create(body);
+      revalidatePublicPages();
       return NextResponse.json(created, { status: 201 });
     },
   };
 }
 
 /** GET (public single item) + PUT (update) + DELETE for an item by id. */
-export function itemHandlers<T>(model: Model<T>) {
+export function itemHandlers<T>(
+  model: Model<T>,
+  extraPaths: (id: string) => string[] = () => []
+) {
   return {
     GET: async (_req: NextRequest, ctx: Ctx) => {
       await ConnectDB();
@@ -50,6 +61,7 @@ export function itemHandlers<T>(model: Model<T>) {
       const { id } = await ctx.params;
       const body = await req.json();
       const updated = await model.findByIdAndUpdate(id, body, { new: true });
+      revalidatePublicPages(extraPaths(id));
       return NextResponse.json(updated);
     },
     DELETE: async (_req: NextRequest, ctx: Ctx) => {
@@ -57,6 +69,7 @@ export function itemHandlers<T>(model: Model<T>) {
       await ConnectDB();
       const { id } = await ctx.params;
       await model.findByIdAndDelete(id);
+      revalidatePublicPages(extraPaths(id));
       return NextResponse.json({ ok: true });
     },
   };
@@ -78,6 +91,7 @@ export function singletonHandlers<T>(model: Model<T>) {
       const doc = existing
         ? await model.findByIdAndUpdate(existing._id, body, { new: true })
         : await model.create(body);
+      revalidatePublicPages();
       return NextResponse.json(doc);
     },
   };
