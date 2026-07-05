@@ -109,7 +109,7 @@ export const defaultData: PortfolioData = {
       tech: ["Whisper", "FastAPI", "Gemini", "Piper TTS"],
       repo: "https://github.com/hieukha/Audio-based-LLM",
       live: "",
-      image: "",
+      image: "/voice_chat_project.png",
       tone: "from-blue-500 to-cyan-400",
     },
     {
@@ -118,7 +118,7 @@ export const defaultData: PortfolioData = {
       tech: ["CLIP", "OCR", "Whisper", "Temporal Modeling"],
       repo: "https://github.com/hieukha/Temporal-Framework-for-Multimodal-Video-Retrieval",
       live: "",
-      image: "",
+      image: "/multimodal_video_retrieval.png",
       tone: "from-violet-500 to-fuchsia-400",
     },
     {
@@ -127,8 +127,17 @@ export const defaultData: PortfolioData = {
       tech: ["FastAPI", "Next.js", "Docker", "WhisperX"],
       repo: "https://github.com/hieukha/ViSL-Tool-Vietnamese-Sign-Language-Dataset-Builder",
       live: "",
-      image: "",
+      image: "/visl_tool.jpg",
       tone: "from-emerald-500 to-teal-400",
+    },
+    {
+      name: "Face Attendance System",
+      desc: "Desktop app for automated attendance tracking using real-time facial recognition, with webcam-based user registration, face embedding storage, and optional anti-spoofing detection.",
+      tech: ["Python", "OpenCV", "face_recognition", "Tkinter"],
+      repo: "https://github.com/hieukha/Face-attendance-system",
+      live: "",
+      image: "/face_attendance.png",
+      tone: "from-rose-500 to-orange-400",
     },
   ],
   experiences: [
